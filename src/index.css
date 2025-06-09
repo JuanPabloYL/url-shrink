@@ -1,0 +1,25 @@
+:root {
+  --blue-1: #335ceb;
+  --purple-1: #7441ea;
+  --secondary: #678b90;
+
+  --background-color: #f7f6ff;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+}
