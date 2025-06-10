@@ -41,6 +41,10 @@ button:hover {
   cursor: pointer;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Navigation */
 .container {
   width: min(95%, 120rem);
@@ -116,6 +120,7 @@ button:hover {
 
   width: min(60%);
   padding: 2rem;
+  border-radius: 1rem;
 }
 
 .form__top {
@@ -192,4 +197,54 @@ button:hover {
   cursor: pointer;
 
   background: var(--linear-gradient-dark);
+}
+
+/* Welcome */
+.welcome {
+  background: var(--linear-gradient);
+  color: white;
+  padding: 2rem;
+  margin-block: 2rem;
+  border-radius: 1rem;
+}
+
+.welcome__header {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid var(--secondary);
+}
+
+.tab__btn {
+  display: flex;
+  color: var(--secondary);
+  gap: 0.5rem;
+  align-items: center;
+  border: 2px solid transparent;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+
+  transition: all 0.3s;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tab__btn.active {
+  border-bottom: 2px solid var(--blue-1);
+  color: var(--blue-1);
+}
+
+.tab__btn svg {
+  height: 2rem;
+}
+
+.tab__btn:hover:not(.active) {
+  border-bottom: 2px solid var(--secondary);
+  color: black;
 }
