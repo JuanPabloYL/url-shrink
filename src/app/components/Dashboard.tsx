@@ -2,6 +2,7 @@ import { FormURL } from "./FormURL";
 // import { ListLinks } from "./ListLinks";
 import { Navbar } from "./Navbar";
 import { Tabs } from "./Tabs";
+import { ManageLinks } from "./ManageLinks";
 
 export const Dashboard = () => {
   const tabs = [
@@ -43,7 +44,7 @@ export const Dashboard = () => {
           />
         </svg>
       ),
-      content: <p>Manage Link</p>,
+      content: <ManageLinks />,
     },
   ];
 

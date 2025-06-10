@@ -6,3 +6,12 @@ export interface AuthState {
   logged: boolean;
   user: string;
 }
+
+export interface ShortenedLink {
+  id: string;
+  originalURL: string;
+  shortURL: string;
+  customAlias?: string;
+  title?: string;
+  createdAt: string;
+}

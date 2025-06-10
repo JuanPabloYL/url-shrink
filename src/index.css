@@ -4,6 +4,9 @@
   --secondary: #678b90;
   --red: #c03333;
 
+  --light-blue: #e0e9fe;
+  --light-pink: #f1e8ff;
+
   --background-color: #f7f6ff;
   --linear-gradient: linear-gradient(
     to right,
@@ -247,4 +250,39 @@ a {
 .tab__btn:hover:not(.active) {
   border-bottom: 2px solid var(--secondary);
   color: black;
+}
+
+/* No links */
+.no-links {
+  display: grid;
+  place-content: center;
+  min-height: 100%;
+  padding-block: 10rem;
+  text-align: center;
+}
+
+.no-links > div {
+  background: linear-gradient(to right, var(--light-blue), var(--light-pink));
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-links svg {
+  width: 6rem;
+  color: var(--blue-1);
+}
+
+.no-links__header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-block: 2rem;
+}
+
+.no-links__text {
+  font-size: 1.8rem;
 }
