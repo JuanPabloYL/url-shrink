@@ -3,8 +3,13 @@ import { LogoContainer } from "../../ui/LogoContainer";
 import { AuthContext } from "../../auth/context/AuthProvider";
 
 export const Navbar = () => {
-  const { state } = useContext(AuthContext);
+  const { state, startLogOut } = useContext(AuthContext);
   const { user } = state;
+
+  console.log(user.displayName);
+  const onLogOut = () => {
+    startLogOut();
+  };
 
   return (
     <div className="navigation-container">
@@ -30,9 +35,13 @@ export const Navbar = () => {
               </svg>
             </div>
 
-            <span className="navigation__welcome">Welcome, Juan Pablo</span>
+            <span className="navigation__welcome">
+              Welcome, {user.displayName}
+            </span>
           </div>
-          <button className="navigation__signout">Sign Out</button>
+          <button className="navigation__signout" onClick={onLogOut}>
+            Sign Out
+          </button>
         </div>
       </div>
     </div>

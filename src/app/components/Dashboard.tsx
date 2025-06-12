@@ -3,8 +3,13 @@ import { FormURL } from "./FormURL";
 import { Navbar } from "./Navbar";
 import { Tabs } from "./Tabs";
 import { ManageLinks } from "./ManageLinks";
+import { useContext } from "react";
+import { AuthContext } from "../../auth/context/AuthProvider";
 
 export const Dashboard = () => {
+  const { state } = useContext(AuthContext);
+  const { user } = state;
+
   const tabs = [
     {
       id: "create",
@@ -54,7 +59,9 @@ export const Dashboard = () => {
 
       <div className="welcome container">
         <div className="welcome__content">
-          <p className="welcome__header">Welcome back, Juan Pablo! 👋</p>
+          <p className="welcome__header">
+            Welcome back, {user.displayName}! 👋
+          </p>
           <p>Ready to create some powerful shork links?</p>
         </div>
       </div>

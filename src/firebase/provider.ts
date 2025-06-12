@@ -55,3 +55,7 @@ export const startLogInWithEmailAndPassword = async (
     console.log(error);
   }
 };
+
+export const logoutFirebase = async () => {
+  return await FirebaseAuth.signOut();
+};

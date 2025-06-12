@@ -19,7 +19,7 @@ export const SignUpPage = () => {
   );
 
   const { signup } = useAuth();
-  const isAuthenticated = useMemo(() => loading === false, [loading]);
+  // const isAuthenticated = useMemo(() => loading === false, [loading]);
 
   const navigate = useNavigate();
 
@@ -74,7 +74,7 @@ export const SignUpPage = () => {
 
         <input
           className="form-login__submit"
-          disabled={isAuthenticated}
+          // disabled={isAuthenticated}
           type="submit"
           value={`Sign Up`}
         />

@@ -2,11 +2,12 @@ import { useEffect, useReducer, type ReactNode } from "react";
 import { authReducer } from "./authReducer";
 import type { AuthContextType, AuthState } from "../../types";
 import {
+  logoutFirebase,
   registerUserWithEmailPassword,
   startLogInWithEmailAndPassword,
 } from "../../firebase/provider";
 import { AuthContext } from "./AuthProvider";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { FirebaseAuth } from "../../firebase/firebase";
 
 const initialState: AuthState = {
@@ -52,7 +53,7 @@ export const AuthProvider = ({ children }: Props) => {
         password,
         displayName,
       });
-      // console.log(userCredential);
+      console.log(userCredential);
 
       dispatch({ type: "LOGIN", payload: userCredential?.user });
     } catch (error) {
@@ -74,13 +75,21 @@ export const AuthProvider = ({ children }: Props) => {
     }
   };
 
-  const logout = async () => {};
+  const logout = async () => {
+    dispatch({ type: "LOGOUT" });
+  };
+
+  const startLogOut = async () => {
+    await logoutFirebase();
+    dispatch({ type: "LOGOUT" });
+  };
 
   const value: AuthContextType = {
     state,
     signup,
     login,
     logout,
+    startLogOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
