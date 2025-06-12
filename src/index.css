@@ -286,3 +286,87 @@ a {
 .no-links__text {
   font-size: 1.8rem;
 }
+
+/* Form */
+.login {
+  width: min(50%, 120rem);
+  margin-inline: auto;
+  text-align: center;
+  padding-top: 5rem;
+}
+
+.login > div {
+  align-items: center;
+  justify-content: center;
+}
+
+.form-login {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2rem;
+}
+
+.form-login h2 {
+  font-size: 3rem;
+}
+
+.login-intro {
+  margin-block: 2rem;
+  color: var(--secondary);
+}
+
+.form-login__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-block: 2rem;
+}
+
+.form-login__intro {
+  margin-block: 2rem;
+}
+
+.form-login__inputs input {
+  padding: 1.5rem 1.5rem 1.5rem 4rem;
+  font-family: inherit;
+  border-radius: 1rem;
+  border: 1px solid var(--secondary);
+  font-size: 1.5rem;
+}
+
+.form-login__inputs input:focus {
+  outline: 1px solid var(--blue-1);
+  box-shadow: rgba(99, 99, 99, 0.274) 0px 2px 8px 0px;
+}
+
+.form-login__submit {
+  background: var(--linear-gradient);
+  border: none;
+  color: white;
+  width: 100%;
+  padding-block: 1rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+
+.form-login__submit:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  background: var(--linear-gradient-dark);
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.form__signup {
+  margin-top: 1rem;
+}
+
+.form__signup span {
+  font-weight: bold;
+  color: var(--blue-1);
+  cursor: pointer;
+}

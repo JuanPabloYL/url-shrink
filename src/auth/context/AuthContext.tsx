@@ -1,11 +1,18 @@
-import { useReducer, type ReactNode } from "react";
+import { useEffect, useReducer, type ReactNode } from "react";
 import { authReducer } from "./authReducer";
-import type { AuthState } from "../../types";
+import type { AuthContextType, AuthState } from "../../types";
+import {
+  registerUserWithEmailPassword,
+  startLogInWithEmailAndPassword,
+} from "../../firebase/provider";
 import { AuthContext } from "./AuthProvider";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseAuth } from "../../firebase/firebase";
 
 const initialState: AuthState = {
-  logged: false,
-  user: "Juan Pablo",
+  user: null,
+  loading: false,
+  error: null,
 };
 
 interface Props {
@@ -15,9 +22,66 @@ interface Props {
 export const AuthProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  return (
-    <AuthContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  // Firebase
+
+  // Sync Firebase Auth state on mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FirebaseAuth, (firebaseUser) => {
+      if (firebaseUser) {
+        console.log(firebaseUser);
+        dispatch({ type: "LOGIN", payload: firebaseUser });
+      } else {
+        dispatch({ type: "LOGOUT" });
+      }
+      dispatch({ type: "CHECKING_DONE" });
+
+      // console.log(state);
+      return () => unsubscribe();
+    });
+  }, []);
+
+  const signup = async (
+    email: string,
+    password: string,
+    displayName: string
+  ) => {
+    dispatch({ type: "LOADING" });
+    try {
+      const userCredential = await registerUserWithEmailPassword({
+        email,
+        password,
+        displayName,
+      });
+      // console.log(userCredential);
+
+      dispatch({ type: "LOGIN", payload: userCredential?.user });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await startLogInWithEmailAndPassword(email, password);
+
+      if (!response?.user) {
+        throw new Error("User not found after login");
+      }
+
+      dispatch({ type: "LOGIN", payload: response?.user });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = async () => {};
+
+  const value: AuthContextType = {
+    state,
+    signup,
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { LogoContainer } from "../../ui/LogoContainer";
+import { AuthContext } from "../../auth/context/AuthProvider";
 
 export const Navbar = () => {
+  const { state } = useContext(AuthContext);
+  const { user } = state;
+
   return (
     <div className="navigation-container">
       <div className="navigation container">

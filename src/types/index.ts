@@ -1,11 +1,20 @@
-export type AuthAction =
-  | { type: "login"; payload: string }
-  | { type: "logout" };
+import type { User } from "firebase/auth";
 
-export interface AuthState {
-  logged: boolean;
-  user: string;
-}
+export type AuthState = {
+  user: User | null;
+  loading: boolean;
+  error: string | null;
+};
+export type AuthAction =
+  | {
+      type: "LOGIN";
+      payload: User;
+    }
+  | { type: "LOGOUT" }
+  | { type: "CHECKING_DONE" }
+  | { type: "LOADING" }
+  | { type: "ERROR"; payload: string }
+  | { type: "SET_USER"; payload: User | null };
 
 export interface ShortenedLink {
   id: string;
@@ -15,3 +24,15 @@ export interface ShortenedLink {
   title?: string;
   createdAt: string;
 }
+
+export type AuthContextType = {
+  state: AuthState;
+  signup: (
+    email: string,
+    password: string,
+    displayName: string
+  ) => Promise<void>;
+
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+};
