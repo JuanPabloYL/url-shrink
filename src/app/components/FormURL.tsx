@@ -1,6 +1,18 @@
+import type { FormEvent } from "react";
+import { useUrlContext } from "../../auth/context/UrlContext";
+import { useForm } from "../../hooks/useForm";
+
 export const FormURL = () => {
+  const { addUrl } = useUrlContext();
+
+  const { url, alias, onInputChange } = useForm({ url: "", alias: "" });
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addUrl({ longURL: url, alias });
+  };
   return (
-    <form className="form container">
+    <form className="form container" onSubmit={onSubmit}>
       <div className="form__top">
         <div className="form__logo">
           <svg
@@ -41,8 +53,21 @@ export const FormURL = () => {
             />
           </svg>
         </div>
-        <input type="text" id="url" placeholder="Paste your long URL here..." />
-        <input type="text" placeholder="Add a title (optional)" />
+        <input
+          type="text"
+          id="url"
+          placeholder="Paste your long URL here..."
+          value={url}
+          onChange={onInputChange}
+          name="url"
+        />
+        <input
+          type="text"
+          placeholder="Add a title (optional)"
+          value={alias}
+          onChange={onInputChange}
+          name="alias"
+        />
       </div>
 
       <input className="form__submit" type="submit" value="Shorten URL" />
