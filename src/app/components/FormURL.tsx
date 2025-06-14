@@ -5,11 +5,16 @@ import { useForm } from "../../hooks/useForm";
 export const FormURL = () => {
   const { addUrl } = useUrlContext();
 
-  const { url, alias, onInputChange } = useForm({ url: "", alias: "" });
+  const { url, alias, onInputChange, onResetForm } = useForm({
+    url: "",
+    alias: "",
+  });
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     addUrl({ longURL: url, alias });
+    onResetForm();
   };
   return (
     <form className="form container" onSubmit={onSubmit}>

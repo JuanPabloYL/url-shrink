@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { ShortenedLink } from "../../types";
+import { LinkCard } from "./LinkCard";
 
-export const ManageLinks = () => {
-  const [linkList, setLinkList] = useState<ShortenedLink[]>([]);
+interface ManagaLinksProps {
+  id?: string;
+  alias?: string;
+  shortURL: string;
+  longURL: string;
+}
 
-  if (!linkList.length) {
+export const ManageLinks = ({ urls }: { urls: ManagaLinksProps[] }) => {
+  if (!urls.length) {
     return (
       <div className="no-links container">
         <div>
@@ -33,5 +37,11 @@ export const ManageLinks = () => {
     );
   }
 
-  return <div>ManageLinks</div>;
+  return (
+    <div className="container links">
+      {urls.map((url) => (
+        <LinkCard key={url.id} url={url} />
+      ))}
+    </div>
+  );
 };

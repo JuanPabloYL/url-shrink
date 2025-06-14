@@ -3,12 +3,19 @@ import { FormURL } from "./FormURL";
 import { Navbar } from "./Navbar";
 import { Tabs } from "./Tabs";
 import { ManageLinks } from "./ManageLinks";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../auth/context/AuthProvider";
+import { useUrlContext } from "../../auth/context/UrlContext";
 
 export const Dashboard = () => {
   const { state } = useContext(AuthContext);
+  const { urls, fetchUrls } = useUrlContext();
+
   const { user } = state;
+
+  useEffect(() => {
+    fetchUrls();
+  }, []);
 
   const tabs = [
     {
@@ -49,7 +56,7 @@ export const Dashboard = () => {
           />
         </svg>
       ),
-      content: <ManageLinks />,
+      content: <ManageLinks urls={urls} />,
     },
   ];
 

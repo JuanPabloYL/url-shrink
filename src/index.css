@@ -1,5 +1,6 @@
 :root {
   --blue-1: #335ceb;
+
   --purple-1: #7441ea;
   --secondary: #678b90;
   --red: #c03333;
@@ -13,6 +14,12 @@
     var(--blue-1) 50%,
     var(--purple-1)
   );
+
+  --light-green: #dcfce7;
+  --dark-green: #166c74;
+  --gray: #6b7280;
+  --light-gray: #f1f3f5;
+  --light-blue: #eff6ff;
 
   --linear-gradient-dark: linear-gradient(to right, #2541a5 50%, #532dab);
 }
@@ -369,4 +376,131 @@ a {
   font-weight: bold;
   color: var(--blue-1);
   cursor: pointer;
+}
+
+/* Links */
+.links {
+  display: flex;
+  flex-direction: column;
+  margin-block: 5rem;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.link {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.link__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link__header h3 {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.link__delete {
+  background-color: transparent;
+  color: var(--red);
+}
+
+.link__delete svg {
+  height: 2rem;
+}
+
+.link__status {
+  background-color: var(--light-green);
+  color: var(--dark-green);
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+}
+
+.link__content p {
+  margin-block: 1rem;
+}
+
+.link__original-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link__original-left {
+  display: flex;
+  gap: 1rem;
+  color: var(--gray);
+  margin-block: 1rem;
+  align-items: center;
+}
+
+.link__original-left svg {
+  height: 2rem;
+}
+
+.link__original-btn {
+  background-color: transparent;
+  color: var(--gray);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s;
+  padding: 1rem;
+}
+
+.link__original-btn svg {
+  height: 2rem;
+}
+
+.link__original-btn:hover {
+  background-color: var(--light-gray);
+  color: initial;
+}
+
+.link__shrink-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.link__shrink-left {
+  background-color: var(--light-blue);
+  color: var(--blue-1);
+  padding: 1rem;
+  border: 1px solid var(--blue-1);
+  border-radius: 1rem;
+  flex: 1;
+}
+
+.link__shrink-btn svg {
+  height: 2rem;
+}
+
+.link__shrink-btn {
+  background-color: var(--light-gray);
+  color: var(--gray);
+  border: 1px solid var(--gray);
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s;
+}
+
+.link__shrink-btn:hover {
+  background-color: var(--light-blue);
+  border: 1px solid var(--blue-1);
+  color: var(--blue-1);
+
+  transform: scale(1.05);
 }
