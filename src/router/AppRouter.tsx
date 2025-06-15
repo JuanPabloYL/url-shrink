@@ -2,14 +2,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { Dashboard } from "../app/components/Dashboard";
 import { SignUpPage } from "../auth/pages/SignUpPage";
-import { useContext } from "react";
-import { AuthContext } from "../auth/context/AuthProvider";
 import { PrivateRoute } from "./PrivateRoute";
 
 import { DotLoader } from "react-spinners";
+import { useAuth } from "../auth/context/AuthProvider";
 
 export const AppRouter = () => {
-  const { state } = useContext(AuthContext);
+  const { state } = useAuth();
   const { user, loading } = state;
   console.log(user);
 

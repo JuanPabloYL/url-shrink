@@ -3,6 +3,7 @@ import { LogoContainer } from "../../ui/LogoContainer";
 import { useForm } from "../../hooks/useForm";
 import { useContext, type FormEvent } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import { Alert } from "../components/Alert";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -46,11 +47,7 @@ export const LoginPage = () => {
           />
         </div>
 
-        {state.error && (
-          <div className="form__login-error">
-            <p>{state.error}</p>
-          </div>
-        )}
+        {state.error && <Alert error={state.error} />}
 
         <input className="form-login__submit" type="submit" value={`Sign In`} />
         <p className="form__signup">

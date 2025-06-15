@@ -95,6 +95,7 @@ export const AuthProvider = ({ children }: Props) => {
     login,
     logout,
     startLogOut,
+    dispatch,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

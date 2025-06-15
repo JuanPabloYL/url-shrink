@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { LogoContainer } from "../../ui/LogoContainer";
 import { useForm } from "../../hooks/useForm";
-import { AuthContext, useAuth } from "../context/AuthProvider";
-import { useContext, useMemo, type FormEvent } from "react";
+import { useAuth } from "../context/AuthProvider";
+import { type FormEvent } from "react";
+import { Alert } from "../components/Alert";
 
 export const SignUpPage = () => {
-  const { state } = useContext(AuthContext);
-
-  const { user, loading } = state;
+  const { signup, state, dispatch } = useAuth();
 
   const { email, fullName, confirmPassword, password, onInputChange } = useForm(
     {
@@ -18,15 +17,39 @@ export const SignUpPage = () => {
     }
   );
 
-  const { signup } = useAuth();
-  // const isAuthenticated = useMemo(() => loading === false, [loading]);
+  const validateEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
   const navigate = useNavigate();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup(email, password, fullName);
-    console.log({ email, password });
+
+    if (fullName.trim().length < 4) {
+      return dispatch({
+        type: "ERROR",
+        payload: "Full Name should be at least 3 characters long.",
+      });
+    }
+
+    if (!validateEmail(email)) {
+      return dispatch({ type: "ERROR", payload: "Email is not valid" });
+    }
+    if (password.length < 6) {
+      dispatch({
+        type: "ERROR",
+        payload: "Password should be at least 6 characters long",
+      });
+    } else if (password !== confirmPassword) {
+      dispatch({ type: "ERROR", payload: "Passwords do not match" });
+    } else {
+      signup(email, password, fullName);
+    }
   };
 
   return (
@@ -71,6 +94,8 @@ export const SignUpPage = () => {
             onChange={onInputChange}
           />
         </div>
+
+        {state.error && <Alert error={state.error} />}
 
         <input
           className="form-login__submit"
