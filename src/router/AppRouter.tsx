@@ -6,12 +6,19 @@ import { useContext } from "react";
 import { AuthContext } from "../auth/context/AuthProvider";
 import { PrivateRoute } from "./PrivateRoute";
 
+import { DotLoader } from "react-spinners";
+
 export const AppRouter = () => {
   const { state } = useContext(AuthContext);
   const { user, loading } = state;
   console.log(user);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="loader">
+        <DotLoader color="#335ceb" />;
+      </div>
+    );
 
   return (
     <div>

@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }: Props) => {
 
   const login = async (email: string, password: string) => {
     try {
+      dispatch({ type: "LOADING" });
       const response = await startLogInWithEmailAndPassword(email, password);
 
       if (!response?.user) {
@@ -71,7 +72,11 @@ export const AuthProvider = ({ children }: Props) => {
 
       dispatch({ type: "LOGIN", payload: response?.user });
     } catch (error) {
-      console.log(error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error Occurred";
+      dispatch({ type: "ERROR", payload: errorMessage });
+    } finally {
+      dispatch({ type: "CHECKING_DONE" });
     }
   };
 

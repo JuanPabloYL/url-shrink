@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthProvider";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { state, login } = useContext(AuthContext);
 
   const { email, password, onInputChange } = useForm({
     email: "",
@@ -45,6 +45,12 @@ export const LoginPage = () => {
             onChange={onInputChange}
           />
         </div>
+
+        {state.error && (
+          <div className="form__login-error">
+            <p>{state.error}</p>
+          </div>
+        )}
 
         <input className="form-login__submit" type="submit" value={`Sign In`} />
         <p className="form__signup">

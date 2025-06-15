@@ -55,6 +55,13 @@ a {
   text-decoration: none;
 }
 
+/* Loader */
+.loader {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+}
+
 /* Navigation */
 .container {
   width: min(95%, 120rem);
@@ -345,6 +352,15 @@ a {
 .form-login__inputs input:focus {
   outline: 1px solid var(--blue-1);
   box-shadow: rgba(99, 99, 99, 0.274) 0px 2px 8px 0px;
+}
+
+.form__login-error {
+  background-color: var(--red);
+  color: white;
+  margin-block: 1rem;
+  padding-block: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
 }
 
 .form-login__submit {
