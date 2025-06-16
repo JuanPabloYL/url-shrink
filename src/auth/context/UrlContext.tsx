@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/firebase";
 import { getTinyUrl } from "../../utils/tintyApi";
+import { useNotification } from "./NotificationProvider";
 
 interface UrlEntry {
   id?: string;
@@ -34,6 +35,7 @@ export const UrlContext = createContext<UrlContextType | null>(null);
 
 export const UrlProvider = ({ children }: { children: ReactNode }) => {
   const [urls, setUrls] = useState<UrlEntry[]>([]);
+  const { showNotification } = useNotification();
   const { state } = useAuth();
   const user = state.user;
 
@@ -47,31 +49,34 @@ export const UrlProvider = ({ children }: { children: ReactNode }) => {
     if (!user) return;
     if (!alias) alias = "Default";
 
-    console.log("Start new url");
+    try {
+      const shortUrl = await getTinyUrl(longURL);
+      if (!shortUrl) throw new Error("TINY URL Failed");
 
-    const shortUrl = await getTinyUrl(longURL);
-    if (!shortUrl) throw new Error("TINY URL Failed");
+      const newUrl: UrlEntry = {
+        longURL,
+        shortURL: shortUrl,
+        alias,
+      };
 
-    const newUrl: UrlEntry = {
-      longURL,
-      shortURL: shortUrl,
-      alias,
-    };
+      const newDoc = doc(collection(FirebaseDB, `${user.uid}/app/urls`));
+      await setDoc(newDoc, newUrl);
+      showNotification({ type: "success", message: "Link Saved!" });
 
-    const newDoc = doc(collection(FirebaseDB, `${user.uid}/app/urls`));
-    await setDoc(newDoc, newUrl);
-
-    setUrls((prev) => [
-      ...prev,
-      { id: newDoc.id, longURL, shortURL: shortUrl, alias },
-    ]);
+      setUrls((prev) => [
+        ...prev,
+        { id: newDoc.id, longURL, shortURL: shortUrl, alias },
+      ]);
+    } catch {
+      showNotification({ type: "error", message: "Failed to save link." });
+    }
   };
 
   const deleteURL = async (id: string) => {
     try {
       const docRef = doc(FirebaseDB, `${user?.uid}/app/urls`, id);
-      // await deleteDoc();
       await deleteDoc(docRef);
+      showNotification({ type: "success", message: "Link deleted!" });
       setUrls((prev) => prev.filter((url) => url.id !== id));
     } catch (error) {
       console.log(error);

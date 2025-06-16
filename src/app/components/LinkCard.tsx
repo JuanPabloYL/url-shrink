@@ -1,4 +1,6 @@
-import { useUrlContext } from "../../auth/context/UrlContext";
+import { useState } from "react";
+import { PopupAlert } from "./PopupAlert";
+import { useNotification } from "../../auth/context/NotificationProvider";
 
 interface LinkCardProps {
   url: {
@@ -10,14 +12,15 @@ interface LinkCardProps {
 }
 
 export const LinkCard = ({ url }: LinkCardProps) => {
-  const { deleteURL } = useUrlContext();
+  const [showAlert, setShowAlert] = useState(false);
+  const { showNotification } = useNotification();
 
   const { alias, longURL, shortURL, id } = url;
 
   const onCopyPaste = async () => {
     try {
       await navigator.clipboard.writeText(shortURL);
-      alert("Copied!!");
+      showNotification({ type: "success", message: "Copied!" });
     } catch (error) {
       console.log("Failed to copy text, try again ", error);
     }
@@ -28,8 +31,7 @@ export const LinkCard = ({ url }: LinkCardProps) => {
   };
 
   const onDelete = () => {
-    console.log("detele");
-    deleteURL(id!);
+    setShowAlert(true);
   };
 
   return (
@@ -121,6 +123,7 @@ export const LinkCard = ({ url }: LinkCardProps) => {
             </button>
           </div>
           {/* Link Shrink */}
+          {showAlert && <PopupAlert id={id} setShowAlert={setShowAlert} />}
         </div>
       </div>
     </div>

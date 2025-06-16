@@ -16,6 +16,11 @@ export type AuthAction =
   | { type: "ERROR"; payload: string }
   | { type: "SET_USER"; payload: User | null };
 
+export type Notification = {
+  type: "success" | "error" | "alert";
+  message: string;
+};
+
 export interface ShortenedLink {
   id: string;
   originalURL: string;

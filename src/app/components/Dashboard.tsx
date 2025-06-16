@@ -3,12 +3,12 @@ import { FormURL } from "./FormURL";
 import { Navbar } from "./Navbar";
 import { Tabs } from "./Tabs";
 import { ManageLinks } from "./ManageLinks";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../auth/context/AuthProvider";
+import { useEffect } from "react";
+import { useAuth } from "../../auth/context/AuthProvider";
 import { useUrlContext } from "../../auth/context/UrlContext";
 
 export const Dashboard = () => {
-  const { state } = useContext(AuthContext);
+  const { state } = useAuth();
   const { urls, fetchUrls } = useUrlContext();
 
   const { user } = state;
@@ -67,15 +67,13 @@ export const Dashboard = () => {
       <div className="welcome container">
         <div className="welcome__content">
           <p className="welcome__header">
-            Welcome back, {user.displayName}! 👋
+            Welcome back, {user?.displayName}! 👋
           </p>
           <p>Ready to create some powerful shork links?</p>
         </div>
       </div>
 
       <Tabs tabs={tabs} />
-
-      {/* <ListLinks /> */}
     </div>
   );
 };

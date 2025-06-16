@@ -20,6 +20,7 @@
   --gray: #6b7280;
   --light-gray: #f1f3f5;
   --light-blue: #eff6ff;
+  --yellow: #f4c15b;
 
   --linear-gradient-dark: linear-gradient(to right, #2541a5 50%, #532dab);
 }
@@ -519,4 +520,127 @@ a {
   color: var(--blue-1);
 
   transform: scale(1.05);
+}
+
+/* Alerts */
+.alert {
+  background-color: white;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1rem;
+
+  /* transform: translateX(200%); */
+  animation: sliderAlert 0.3s linear forwards;
+}
+
+@keyframes sliderAlert {
+  from {
+    transform: translateX(200%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.alert__success {
+  border-left: 8px solid var(--dark-green);
+  color: var(--dark-green);
+}
+
+.alert__error {
+  border-left: 8px solid var(--red);
+  color: var(--red);
+}
+
+.alert__alert {
+  border-left: 8px solid var(--yellow);
+  color: var(--yellow);
+}
+
+.alert__icon {
+  padding: 1rem;
+}
+.alert__icon svg {
+  width: 2rem;
+}
+
+.alert__close svg {
+  width: 2rem;
+}
+
+.alert__content {
+  color: black;
+  padding-right: 3rem;
+  padding-block: 1rem;
+}
+
+.alert__content h2 {
+  text-transform: capitalize;
+}
+
+.alert__close {
+  background-color: transparent;
+  padding: 1rem;
+}
+
+/* popupalert */
+.popupalert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(17, 17, 18, 0.4);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-content: center;
+}
+
+.popupalert__container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding: 3rem;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.popupalert__icon {
+  width: 5rem;
+}
+
+.popupalert__buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.popupalert__buttons button {
+  padding-block: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+
+.popupalert__buttons-delete {
+  background-color: var(--red);
+  color: white;
+}
+
+.popupalert__close-btn {
+  background-color: transparent;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.popupalert__close-btn svg {
+  width: 2rem;
 }
