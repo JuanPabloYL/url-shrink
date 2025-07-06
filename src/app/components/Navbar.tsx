@@ -3,10 +3,18 @@ import { LogoContainer } from "../../ui/LogoContainer";
 import { AuthContext } from "../../auth/context/AuthProvider";
 
 export const Navbar = () => {
-  const { state, startLogOut } = useContext(AuthContext);
-  const { user } = state;
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("AuthContext is not available");
+  }
 
-  console.log(user.displayName);
+  const { state, startLogOut } = authContext;
+
+  const { user } = state;
+  if (!user) {
+    throw new Error("User not provided");
+  }
+
   const onLogOut = () => {
     startLogOut();
   };

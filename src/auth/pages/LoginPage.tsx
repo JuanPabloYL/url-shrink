@@ -6,8 +6,13 @@ import { AuthContext } from "../context/AuthProvider";
 import { Alert } from "../components/Alert";
 
 export const LoginPage = () => {
+  const autContext = useContext(AuthContext);
+  if (!autContext) {
+    throw new Error("No authcontext provided");
+  }
+
   const navigate = useNavigate();
-  const { state, login } = useContext(AuthContext);
+  const { state, login } = autContext;
 
   const { email, password, onInputChange } = useForm({
     email: "",
