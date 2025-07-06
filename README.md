@@ -19,6 +19,12 @@ Check out the live demo of the URL Shortener app here:
 
 ## 🚀 Tech Stack
 
+- React
+- TypeScript
+- Firebase Authentication
+- Firebase Firestore (for URL data storage)
+- CSS Modules / Tailwind CSS (adjust to your styling method)
+
 ## ✨ Features
 
 - 🔐 Email/Password & Google Authentication (Firebase)
